@@ -1,0 +1,27 @@
+name: 'Cypress error backup'
+description: 'Save cypress errors in a github repository'
+inputs:
+  gh-token:
+    description: "Github token to access/upload to the repository"
+    required: true
+  gh-repo: 
+    description: "Github repository to save the screenshots (eg: devgymbr/repo-name)"
+    required: true
+runs:
+  using: "composite"
+  steps:
+  - shell: bash
+    run: GH_REPO_NAME=$(echo ${{ inputs.gh-repo }} | cut -d "/" -f 2)" >> $GITHUB_ENV
+  - shell: bash
+    run: |
+      git clone --single-branch https://filhodanuvem:${{ inputs.gh-token }}@github.com/${{ inputs.gh-repo }}
+      cd ${{ env.GH_REPO_NAME }}}
+      git checkout -b branch_${{ github.sha }}
+      cp -r ../e2e/screenshots ./
+      git config --global user.name "${{ env.GITHUB_ACTOR }}"
+      git config --global user.email "${{ env.GITHUB_ACTOR }}@users.noreply.github.com }}"
+      git add .
+      git commit -m "screenshots of ${{ github.sha }}"
+      git push origin HEAD
+      echo '### End2End screenshots! ' >> $GITHUB_STEP_SUMMARY
+      echo "### [Link to screenshots](https://github.com/${{ inputs.gh-repo }}/tree/branch_${{ github.sha }})" >> $GITHUB_STEP_SUMMARY
