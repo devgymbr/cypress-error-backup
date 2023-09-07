@@ -18,8 +18,8 @@ runs:
       cd ${{ env.GH_REPO_NAME }}
       git checkout -b branch_${{ github.sha }}
       cp -r ../e2e/screenshots ./
-      git config --global user.name "${{ env.GITHUB_ACTOR }}"
-      git config --global user.email "${{ env.GITHUB_ACTOR }}@users.noreply.github.com }}"
+      git config --global user.name "${{ github.actor }}"
+      git config --global user.email "${{ github.actor }}@users.noreply.github.com }}"
       git add .
       git commit -m "screenshots of ${{ github.sha }}"
       git push origin HEAD
