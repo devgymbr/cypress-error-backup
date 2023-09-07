@@ -11,7 +11,7 @@ runs:
   using: "composite"
   steps:
   - shell: bash
-    run: GH_REPO_NAME="$(echo ${{ inputs.gh-repo }} | cut -d "/" -f 2)" >> $GITHUB_ENV
+    run: echo "GH_REPO_NAME=$(echo ${{ inputs.gh-repo }} | cut -d "/" -f 2)" >> $GITHUB_ENV
   - shell: bash
     run: |
       git clone --single-branch https://filhodanuvem:${{ inputs.gh-token }}@github.com/${{ inputs.gh-repo }}
