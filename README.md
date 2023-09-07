@@ -1,6 +1,6 @@
 # cypress-error-backup
 
-GitHub action that uploads cypress error screenshots to another github repository and make them available as an artifact on debugging. 
+GitHub action that uploads cypress error screenshots to another github repository and make them available as an artifact for debugging purposes. 
 
 ```yaml
 uses: devgymbr/cypress-error-backup@v1.0.0
