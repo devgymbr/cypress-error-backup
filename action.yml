@@ -23,5 +23,8 @@ runs:
       git add .
       git commit -m "screenshots of ${{ github.sha }}"
       git push origin HEAD
+      echo "GH_REPO_LATEST_COMMIT=$(git rev-parse HEAD)" >> $GITHUB_ENV
+  - shell: bash
+    run: |
       echo '### End2End screenshots! ' >> $GITHUB_STEP_SUMMARY
-      echo "### [Link to screenshots](https://github.com/${{ inputs.gh-repo }}/tree/branch_${{ github.sha }})" >> $GITHUB_STEP_SUMMARY
+      echo "### [Link to screenshots](https://github.com/${{ inputs.gh-repo }}/commit/${{ env.GH_REPO_LATEST_COMMIT }})" >> $GITHUB_STEP_SUMMARY
