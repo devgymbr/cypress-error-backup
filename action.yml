@@ -16,7 +16,7 @@ runs:
     run: |
       git clone --single-branch https://filhodanuvem:${{ inputs.gh-token }}@github.com/${{ inputs.gh-repo }}
       cd ${{ env.GH_REPO_NAME }}
-      git checkout -b branch_${{ github.sha }}
+      git checkout -b branch_${{ github.sha }}_$(uuidgen | cut -c1-8 | awk '{print tolower($0)}')
       cp -r ../e2e/screenshots ./
       git config --global user.name "${{ github.actor }}"
       git config --global user.email "${{ github.actor }}@users.noreply.github.com }}"
